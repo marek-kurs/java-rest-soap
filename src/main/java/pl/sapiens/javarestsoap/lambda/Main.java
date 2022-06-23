@@ -24,6 +24,13 @@ public class Main {
             }
         };
 
+        Lambdable anonymousWay2 = new Lambdable() {
+            @Override
+            public String getNick() {
+                return "maniek";
+            }
+        };
+
         Lambdable newWay = () -> "maniek";
         Supplier<String> standardSupplier = () -> "maniek";
         Adult checker = (age) -> {
