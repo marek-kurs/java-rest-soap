@@ -61,10 +61,15 @@ public class RestReservationController {
     }
 
     @POST
-    public Response createReservation(Reservation toCreate) throws URISyntaxException {
+    public Response createReservation(Reservation toCreate) {
         log.info("trying to create reservation: [{}]", toCreate);
         // TODO: use service, add validation
-        URI location = new URI("/reservations/2");
+        URI location = null;
+        try {
+            location = new URI("/reservations/2");
+        } catch (URISyntaxException e) {
+            log.error("Cannot create location header");
+        }
 
         return Response.created(location).build();
     }
