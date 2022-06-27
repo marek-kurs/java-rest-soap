@@ -38,13 +38,9 @@ public class RestReservationController {
 
     @GET
     public Response getReservations() {
-        var dummyReservations = List.of(
-                theOnlyOne
-        );
-
         log.info("getting all reservations");
-        log.info("number of found reservations: [{}]", dummyReservations.size());
-        return Response.ok(dummyReservations).build();
+        var reservations = businessLogic.getAllReservationsFromDataSource();
+        return Response.ok(reservations).build();
     }
 
     @GET
