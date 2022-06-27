@@ -44,18 +44,31 @@ public class RestReservationController {
         return Response.ok(reservations).build();
     }
 
+    // old way - using checked exceptions - really old - don't do it:)
+//    @GET
+//    @Path("/{id}")
+//    public Response findReservationById(@PathParam("id") Long reservationId) {
+//        log.info("trying to find reservation by id: [{}]", reservationId);
+//
+//        Response result;
+//        try {
+//            Reservation found = businessLogic.getReservationById(reservationId);
+//            result = Response.ok(found).build();
+//        } catch (NoReservationFoundException e) {
+//            result = Response.status(NOT_FOUND).build();
+//        }
+//
+//        return result;
+//    }
+
     @GET
     @Path("/{id}")
     public Response findReservationById(@PathParam("id") Long reservationId) {
         log.info("trying to find reservation by id: [{}]", reservationId);
 
         Response result;
-        try {
-            Reservation found = businessLogic.getReservationById(reservationId);
-            result = Response.ok(found).build();
-        } catch (NoReservationFoundException e) {
-            result = Response.status(NOT_FOUND).build();
-        }
+        Reservation found = businessLogic.getReservationByIdBetter(reservationId);
+        result = Response.ok(found).build();
 
         return result;
     }
