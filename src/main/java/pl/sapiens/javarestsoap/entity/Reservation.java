@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 
@@ -40,4 +42,24 @@ public class Reservation {
 
     @Column(name = "CUSTOMER_COMMENTS")
     String customerComments;
+
+    @Column(name = "CREATION_TIMESTAMP")
+    LocalDateTime creationTimestamp;
+
+    @Column(name = "UPDATE_TIMESTAMP")
+    LocalDateTime updateTimestamp;
+
+    // called once - during storing object inside db
+    @PrePersist
+    private void setCreationTimestamp() {
+        LocalDateTime now = LocalDateTime.now();
+        creationTimestamp = now;
+        updateTimestamp = now;
+    }
+
+    // called each time entity is updated inside db
+    @PreUpdate
+    private void setUpdateTimestamp() {
+        updateTimestamp = LocalDateTime.now();
+    }
 }

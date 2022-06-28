@@ -3,6 +3,7 @@ package pl.sapiens.javarestsoap.controller;
 import lombok.extern.slf4j.Slf4j;
 import pl.sapiens.javarestsoap.entity.Reservation;
 import pl.sapiens.javarestsoap.exception.NoReservationFoundException;
+import pl.sapiens.javarestsoap.mapper.ReservationMapper;
 import pl.sapiens.javarestsoap.service.ReservationsService;
 
 import javax.ws.rs.Consumes;
@@ -36,12 +37,16 @@ public class RestReservationController {
             "Near window!!!");
 
     private final ReservationsService businessLogic = new ReservationsService();
+    private final ReservationMapper reservationMapper = new ReservationMapper();
 
     @GET
     public Response getReservations() {
         log.info("getting all reservations");
         var reservations = businessLogic.getAllReservationsFromDataSource();
-        return Response.ok(reservations).build();
+        var reservationsDtos = reservations.stream()
+                .map(reservation -> reservationMapper.fromEntityToDto(reservation))
+                .toList();
+        return Response.ok(reservationsDtos).build();
     }
 
     // old way - using checked exceptions - really old - don't do it:)
@@ -68,11 +73,12 @@ public class RestReservationController {
 
         Response result;
         Reservation found = businessLogic.getReservationByIdBetter(reservationId);
-        result = Response.ok(found).build();
+        result = Response.ok(reservationMapper.fromEntityToDto(found)).build();
 
         return result;
     }
 
+    // TODO:homework
     @POST
     public Response createReservation(Reservation toCreate) {
         log.info("trying to create reservation: [{}]", toCreate);
