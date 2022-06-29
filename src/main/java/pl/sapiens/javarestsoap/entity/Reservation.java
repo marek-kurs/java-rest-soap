@@ -49,6 +49,19 @@ public class Reservation {
     @Column(name = "UPDATE_TIMESTAMP")
     LocalDateTime updateTimestamp;
 
+    public Reservation(Long id, String surname, Integer tableNumber, LocalDateTime startReservation, LocalDateTime endReservation, String address, String customerComments) {
+        this.id = id;
+        this.surname = surname;
+        this.tableNumber = tableNumber;
+        this.startReservation = startReservation;
+        this.endReservation = endReservation;
+        this.address = address;
+        this.customerComments = customerComments;
+        // after adding new fields to class
+        creationTimestamp = LocalDateTime.now();
+        updateTimestamp = creationTimestamp;
+    }
+
     // called once - during storing object inside db
     @PrePersist
     private void setCreationTimestamp() {
