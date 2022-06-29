@@ -1,6 +1,7 @@
 package pl.sapiens.javarestsoap.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import pl.sapiens.javarestsoap.dto.ReservationXmlDto;
 import pl.sapiens.javarestsoap.entity.Reservation;
 import pl.sapiens.javarestsoap.exception.NoReservationFoundException;
 import pl.sapiens.javarestsoap.mapper.ReservationMapper;
@@ -49,6 +50,18 @@ public class RestReservationController {
         return Response.ok(reservationsDtos).build();
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_XML)
+    public Response getReservationsAsXml() {
+        ReservationXmlDto result = ReservationXmlDto.builder()
+                .id(1L)
+                .surname("maniek")
+                .tableNumber(14)
+                .startReservation(LocalDateTime.now())
+                .build();
+
+        return Response.ok(result).build();
+    }
     // old way - using checked exceptions - really old - don't do it:)
 //    @GET
 //    @Path("/{id}")
