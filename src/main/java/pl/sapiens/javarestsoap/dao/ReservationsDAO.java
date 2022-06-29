@@ -2,6 +2,8 @@ package pl.sapiens.javarestsoap.dao;
 
 import pl.sapiens.javarestsoap.entity.Reservation;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,25 +11,25 @@ import java.util.Optional;
 
 public class ReservationsDAO {
 
-    private List<Reservation> reservations = new ArrayList<>();
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public ReservationsDAO() {
-        reservations.add(new Reservation(1L,
-                "Pastuszka",
-                13,
-                LocalDateTime.now(),
-                LocalDateTime.now().plusHours(2),
-                "Main center",
-                "Near window!!!"));
     }
 
     public List<Reservation> findAllReservations() {
-        return reservations;
+        String query = """
+            
+        """;
+
+
+
+        return entityManager.createQuery(query, Reservation.class).getResultList();
     }
 
     public Optional<Reservation> findReservationById(Long id) {
-        return reservations.stream()
-                .filter(reservation -> reservation.getId().equals(id))
-                .findAny();
+
+        // FIXME
+        return Optional.empty();
     }
 }
