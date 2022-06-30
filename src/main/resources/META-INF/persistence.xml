@@ -6,10 +6,12 @@
     <persistence-unit name="default" transaction-type="JTA">
         <class>pl.sapiens.javarestsoap.entity.Reservation</class>
         <properties>
+<!--            TODO:url to embedded db-->
             <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:my-rest;DB_CLOSE_DELAY=-1"/>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
             <property name="javax.persistence.sql-load-script-source" value="sql/script.sql"/>
             <property name="javax.persistence.schema-generation.database.action" value="create"/>
+            <property name="openjpa.Log" value="DefaultLevel=WARN, Runtime=INFO, Tool=INFO, SQL=TRACE"/>
         </properties>
     </persistence-unit>
 </persistence>

@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 //import org.slf4j.Logger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.sapiens.javarestsoap.dto.ReservationDto;
 import pl.sapiens.javarestsoap.dto.ReservationXmlDto;
 import pl.sapiens.javarestsoap.entity.Reservation;
 import pl.sapiens.javarestsoap.exception.NoReservationFoundException;
@@ -98,14 +99,14 @@ public class RestReservationController {
         return result;
     }
 
-    // TODO:homework
     @POST
-    public Response createReservation(Reservation toCreate) {
+    public Response createReservation(ReservationDto toCreate) {
         log.info("trying to create reservation: [{}]", toCreate);
-        // TODO: use service, add validation
+        var entityToSave = reservationMapper.fromDtoToEntity(toCreate);
+        var entityAfterSaving = businessLogic.createNewReservation(entityToSave);
         URI location = null;
         try {
-            location = new URI("/reservations/2");
+            location = new URI("/reservations/" + entityAfterSaving.getId());
         } catch (URISyntaxException e) {
             log.error("Cannot create location header");
         }

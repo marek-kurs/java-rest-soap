@@ -51,4 +51,12 @@ public class ReservationsService {
 
         return maybeReservation.orElseThrow(() -> new NoReservationFoundExceptionBetterOne("No reservation with id: " + id));
     }
+
+    public Reservation createNewReservation(Reservation entityToSave) {
+        log.info("entity before saving to dao: [{}]", entityToSave);
+
+        var result = dataSource.saveReservation(entityToSave);
+        log.info("after saving: [{}]", result);
+        return result;
+    }
 }
