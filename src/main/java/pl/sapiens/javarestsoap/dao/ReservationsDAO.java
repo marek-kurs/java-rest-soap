@@ -18,18 +18,15 @@ public class ReservationsDAO {
     }
 
     public List<Reservation> findAllReservations() {
-        String query = """
-            
+        String jpqlQuery = """
+            select b
+            from Booking b
         """;
 
-
-
-        return entityManager.createQuery(query, Reservation.class).getResultList();
+        return entityManager.createQuery(jpqlQuery, Reservation.class).getResultList();
     }
 
     public Optional<Reservation> findReservationById(Long id) {
-
-        // FIXME
-        return Optional.empty();
+        return Optional.ofNullable(entityManager.find(Reservation.class, id));
     }
 }

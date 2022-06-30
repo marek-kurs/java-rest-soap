@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity
+@Entity(name = "Booking")
 @Table(name = "RESERVATIONS")
 public class Reservation {
 

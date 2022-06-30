@@ -1,12 +1,16 @@
 package pl.sapiens.javarestsoap.controller;
 
 import lombok.extern.slf4j.Slf4j;
+//import org.slf4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.sapiens.javarestsoap.dto.ReservationXmlDto;
 import pl.sapiens.javarestsoap.entity.Reservation;
 import pl.sapiens.javarestsoap.exception.NoReservationFoundException;
 import pl.sapiens.javarestsoap.mapper.ReservationMapper;
 import pl.sapiens.javarestsoap.service.ReservationsService;
 
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -29,6 +33,8 @@ import static javax.ws.rs.core.Response.Status.NOT_FOUND;
 @Path("/reservations")
 public class RestReservationController {
 
+    // below line is the same as @Slf4j
+//        private static final Logger log = LoggerFactory.getLogger(RestReservationController.class);
     private static final Reservation theOnlyOne = new Reservation(1L,
             "Pastuszka",
             13,
@@ -37,7 +43,8 @@ public class RestReservationController {
             "Main center",
             "Near window!!!");
 
-    private final ReservationsService businessLogic = new ReservationsService();
+    @Inject
+    private ReservationsService businessLogic;
     private final ReservationMapper reservationMapper = new ReservationMapper();
 
     @GET

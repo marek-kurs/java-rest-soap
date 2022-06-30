@@ -6,12 +6,14 @@ import pl.sapiens.javarestsoap.entity.Reservation;
 import pl.sapiens.javarestsoap.exception.NoReservationFoundException;
 import pl.sapiens.javarestsoap.exception.NoReservationFoundExceptionBetterOne;
 
+import javax.inject.Inject;
 import java.util.List;
 
 @Slf4j
 public class ReservationsService {
 
-    private final ReservationsDAO dataSource = new ReservationsDAO();
+    @Inject
+    private ReservationsDAO dataSource;
 
     public List<Reservation> getAllReservationsFromDataSource() {
         log.info("getting all reservations");
