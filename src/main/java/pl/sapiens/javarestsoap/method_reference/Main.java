@@ -1,6 +1,7 @@
 package pl.sapiens.javarestsoap.method_reference;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import static java.lang.System.out;
 
@@ -24,6 +25,20 @@ public class Main {
                         new Address("Poland", "Radom", "Główna", "11"))
         );
 
+        // You cannot use again closed stream!!!
+//        Stream<PersonRecord> personStream = persons.stream();
+//        // with lambda
+//        personStream
+//                // void accept(T t);
+//                .forEach(person -> {
+//                    out.println(person);
+//                });
+//
+//        // with method reference
+//        personStream
+//                // void accept(T t);
+//                // functional programming
+//                .forEach(out::println);
         // with lambda
         persons.stream()
                 // void accept(T t);
@@ -36,6 +51,7 @@ public class Main {
                 // void accept(T t);
                 // functional programming
                 .forEach(out::println);
-    }
 
+
+    }
 }
