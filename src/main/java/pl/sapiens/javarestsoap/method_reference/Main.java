@@ -1,5 +1,6 @@
 package pl.sapiens.javarestsoap.method_reference;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -22,7 +23,19 @@ public class Main {
                 new PersonRecord("Jan",
                         "Kowalski",
                         55,
+                        new Address("Poland", "Radom", "Główna", "11")),
+
+                new PersonRecord("Jan",
+                        "Kowalski",
+                        40,
+                        new Address("Poland", "Radom", "Główna", "11")),
+
+                new PersonRecord("Jan",
+                        "Kowalski",
+                        80,
                         new Address("Poland", "Radom", "Główna", "11"))
+
+
         );
 
         // You cannot use again closed stream!!!
@@ -80,6 +93,14 @@ public class Main {
         out.println("Sorting by age - using method from PersonRecord - method reference version");
         persons.stream()
                 .sorted(PersonRecord::comparePersonAge) // sorted using given method
+                .forEach(out::println);
+
+        out.println("Sorting by name - extra features of Comparator");
+        persons.stream()
+                .sorted(Comparator.comparing(PersonRecord::name)
+                        .thenComparing(PersonRecord::surname)
+                        .thenComparingInt(PersonRecord::age)
+                        .reversed())
                 .forEach(out::println);
     }
 }
