@@ -2,6 +2,8 @@ package pl.sapiens.javarestsoap.method_reference;
 
 import java.util.List;
 
+import static java.lang.System.out;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -25,9 +27,15 @@ public class Main {
         // with lambda
         persons.stream()
                 // void accept(T t);
-                .forEach(person -> System.out.println(person));
+                .forEach(person -> {
+                    out.println(person);
+                });
 
-
+        // with method reference
+        persons.stream()
+                // void accept(T t);
+                // functional programming
+                .forEach(out::println);
     }
 
 }
