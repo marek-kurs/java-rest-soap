@@ -53,5 +53,12 @@ public class Main {
                 .forEach(out::println);
 
 
+        // if class implements Comparable it's called natural order
+        // Comparator is used for custom object comparison - there can be more
+        // than one way
+        // cannot compare using sorted() method if class doesn't implement Comparable
+//        persons.stream()
+//                .sorted()
+//                .forEach(person -> out.println(person));
     }
 }
