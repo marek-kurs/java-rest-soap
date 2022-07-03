@@ -7,6 +7,7 @@ import pl.sapiens.javarestsoap.exception.NoReservationFoundException;
 import pl.sapiens.javarestsoap.exception.NoReservationFoundExceptionBetterOne;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Slf4j
@@ -52,6 +53,15 @@ public class ReservationsService {
         return maybeReservation.orElseThrow(() -> new NoReservationFoundExceptionBetterOne("No reservation with id: " + id));
     }
 
+    // hibernate - pseudocode
+    // var session = getSession()
+    // session.beginTransaction();
+    // do something - 1st insert
+    //
+    // session.commitTransaction();
+    // session.close()
+    //
+    @Transactional // whole method is atomic - all or nothing
     public Reservation createNewReservation(Reservation entityToSave) {
         log.info("entity before saving to dao: [{}]", entityToSave);
 
