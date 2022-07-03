@@ -58,7 +58,28 @@ public class Main {
         // than one way
         // cannot compare using sorted() method if class doesn't implement Comparable
 //        persons.stream()
-//                .sorted()
+//                .sorted() // usuing natural class order - Comparable
 //                .forEach(person -> out.println(person));
+
+        out.println("Sorting by name");
+        persons.stream()
+                .sorted((person1, person2) -> person1.name().compareTo(person2.name()))
+                .forEach(out::println);
+
+        out.println("Sorting by age - sending custom comparator");
+        persons.stream()
+                // result lower than zero means it's first
+                .sorted((o1, o2) -> o1.age() - o2.age())
+                .forEach(out::println);
+
+        out.println("Sorting by age - using method from PersonRecord - lambda version");
+        persons.stream()
+                .sorted((person1, person2) -> PersonRecord.comparePersonAge(person1, person2))
+                .forEach(out::println);
+
+        out.println("Sorting by age - using method from PersonRecord - method reference version");
+        persons.stream()
+                .sorted(PersonRecord::comparePersonAge) // sorted using given method
+                .forEach(out::println);
     }
 }

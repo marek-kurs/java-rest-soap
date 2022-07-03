@@ -9,8 +9,8 @@ public record PersonRecord(
     // > 0 = is older
     // == 0 = the same age
     // < 0 = this person is younger
-    int comparePersonAge(PersonRecord other) {
-        return age - other.age;
+    static int comparePersonAge(PersonRecord first, PersonRecord second) {
+        return first.age() - second.age();
     }
 }
 
